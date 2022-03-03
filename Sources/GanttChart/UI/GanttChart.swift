@@ -26,6 +26,8 @@ public class GanttChart: UICollectionView, UICollectionViewDelegate, UICollectio
         
         delegate = self
         dataSource = self
+        bounces = false
+        showsHorizontalScrollIndicator = false
         registerCells()
     }
     
