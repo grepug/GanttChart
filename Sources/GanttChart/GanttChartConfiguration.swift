@@ -10,15 +10,15 @@ import UIKit
 public struct GanttChartConfiguration: Hashable {
     public var calendarType: GanttChartCalendarScale
     public var items: [GanttChartItem]
-    public var fixedHeaderHeight: CGFloat = 80
-    public var fixedColumnWidth: CGFloat = 100
-    public var bgCellHeight: CGFloat = 60
-    public var itemHeight: CGFloat = 40
-    public var widthPerDay: CGFloat = 30
-    public var extraWidthPerDay: CGFloat = 0
-    public var leadingExtraMonths: Int = 0
-    public var trailingExtraMonths: Int = 0
-    public var showingLeadingFixedColumn = true
+    public var fixedHeaderHeight: CGFloat
+    public var fixedColumnWidth: CGFloat
+    public var bgCellHeight: CGFloat
+    public var itemHeight: CGFloat
+    public var widthPerDay: CGFloat
+    public var extraWidthPerDay: CGFloat
+    public var leadingExtraMonths: Int
+    public var trailingExtraMonths: Int
+    public var showingLeadingFixedColumn: Bool
     
     public init(items: [GanttChartItem],
                 calendarType: GanttChartCalendarScale = .monthsAndDays,
