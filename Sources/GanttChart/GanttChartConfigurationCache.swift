@@ -8,7 +8,7 @@
 import UIKit
 
 public struct GanttChartConfigurationCache: Hashable {
-    let configuration: GanttChartConfiguration
+    public let configuration: GanttChartConfiguration
     let currentDate: Date = Date()
     let bgCells: [GanttBgCell]
     let chartStartDate: Date

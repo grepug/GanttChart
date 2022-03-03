@@ -39,7 +39,7 @@ extension String {
     }
 }
 
-extension String {
+public extension String {
     func toDate(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
         let dateFormatter = DateFormatter()
         

@@ -9,23 +9,23 @@ import UIKit
 
 public class GanttChart: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
     public var contextMenuConfiguration: ((GanttChartItem, Int) -> UIContextMenuConfiguration?)?
+    public var chartConfigCache: GanttChartConfigurationCache!
     
-    var chartConfigCache: GanttChartConfigurationCache
     var layout: GanttCollectionViewLayout
     
-    var chartConfig: GanttChartConfiguration {
+    public var chartConfig: GanttChartConfiguration {
         chartConfigCache.configuration
     }
     
-    public init(frame: CGRect, chartConfig: GanttChartConfiguration) {
-        self.layout = GanttCollectionViewLayout()
-        self.chartConfigCache = chartConfig.cached()
+    public init(frame: CGRect) {
+        let layout = GanttCollectionViewLayout()
+        
+        self.layout = layout
         
         super.init(frame: frame, collectionViewLayout: layout)
         
         delegate = self
         dataSource = self
-        layout.config = chartConfigCache
         registerCells()
     }
     
@@ -35,6 +35,13 @@ public class GanttChart: UICollectionView, UICollectionViewDelegate, UICollectio
 }
 
 public extension GanttChart {
+    func configure(using chartConfig: GanttChartConfiguration) {
+        chartConfigCache = chartConfig.cached()
+        layout.config = chartConfigCache
+        
+        reloadData()
+    }
+    
     func scrollsToToday() {
         let point = chartConfigCache.todayPoint(in: bounds, y: contentOffset.y)
         setContentOffset(point, animated: true)

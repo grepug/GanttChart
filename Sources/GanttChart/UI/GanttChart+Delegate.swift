@@ -8,7 +8,7 @@
 import UIKit
 
 public extension GanttChart {
-    override var numberOfSections: Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         chartConfig.items.count + 2
     }
     

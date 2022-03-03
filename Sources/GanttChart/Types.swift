@@ -10,7 +10,7 @@ import UIKit
 public enum GanttChartCalendarScale: CaseIterable {
     case weeksAndDays, monthsAndDays
     
-    var text: String {
+    public var text: String {
         switch self {
         case .weeksAndDays: return "周视图"
         case .monthsAndDays: return "月视图"
@@ -47,21 +47,35 @@ struct GanttChartCycle {
 
 public struct GanttChartItem: Identifiable, Hashable {
     public var id = UUID()
-    var startDate: Date
-    var endDate: Date
-    var title: String
-    var progress: Double
-    var color: UIColor
+    public var startDate: Date
+    public var endDate: Date
+    public var title: String
+    public var progress: Double
+    public var color: UIColor
     
-    var font: UIFont {
+    public var font: UIFont {
         .boldSystemFont(ofSize: 18)
     }
     
-    var width: CGFloat {
+    public var width: CGFloat {
         title.widthOfString(usingFont: font)
     }
     
-    func apply(label: UILabel, in rect: CGRect) {
+    public init(id: UUID = UUID(),
+                startDate: Date,
+                endDate: Date,
+                title: String,
+                progress: Double,
+                color: UIColor) {
+        self.id = id
+        self.startDate = startDate
+        self.endDate = endDate
+        self.title = title
+        self.progress = progress
+        self.color = color
+    }
+    
+    public func apply(label: UILabel, in rect: CGRect) {
         let padding: CGFloat = 16
         
         label.font = font

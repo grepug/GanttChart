@@ -20,6 +20,30 @@ public struct GanttChartConfiguration: Hashable {
     public var trailingExtraMonths: Int = 0
     public var showingLeadingFixedColumn = true
     
+    public init(items: [GanttChartItem],
+                calendarType: GanttChartCalendarScale = .monthsAndDays,
+                fixedHeaderHeight: CGFloat = 80,
+                fixedColumnWidth: CGFloat = 100,
+                bgCellHeight: CGFloat = 60,
+                itemHeight: CGFloat = 40,
+                widthPerDay: CGFloat = 30,
+                extraWidthPerDay: CGFloat = 0,
+                leadingExtraMonths: Int = 0,
+                trailingExtraMonths: Int = 0,
+                showingLeadingFixedColumn: Bool = true) {
+        self.calendarType = calendarType
+        self.items = items
+        self.fixedHeaderHeight = fixedHeaderHeight
+        self.fixedColumnWidth = fixedColumnWidth
+        self.bgCellHeight = bgCellHeight
+        self.itemHeight = itemHeight
+        self.widthPerDay = widthPerDay
+        self.extraWidthPerDay = extraWidthPerDay
+        self.leadingExtraMonths = leadingExtraMonths
+        self.trailingExtraMonths = trailingExtraMonths
+        self.showingLeadingFixedColumn = showingLeadingFixedColumn
+    }
+    
     public func cached() -> GanttChartConfigurationCache {
         let startDate = chartStartDate
         let endDate = chartEndDate
