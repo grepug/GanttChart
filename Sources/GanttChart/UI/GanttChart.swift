@@ -35,12 +35,15 @@ public class GanttChart: UICollectionView, UICollectionViewDelegate, UICollectio
 }
 
 public extension GanttChart {
-    func configure(using chartConfig: GanttChartConfiguration? = nil) {
+    func configure(using chartConfig: GanttChartConfiguration? = nil, reloading: Bool = false) {
         let chartConfig = chartConfig ?? chartConfigCache.configuration
         
         chartConfigCache = chartConfig.cached()
         layout.config = chartConfigCache
-        reloadData()
+        
+        if reloading {
+            reloadData()
+        }
     }
     
     func changeOrientation(size: CGSize) {
