@@ -63,13 +63,13 @@ extension GanttChartBgCellConfiguration.View {
                                   width: 2,
                                   height: bounds.height)
         
-        if config.index % 2 != 0 {
-            backgroundColor = .init {
-                $0.userInterfaceStyle == .dark ? .secondarySystemBackground : .systemGroupedBackground
-            }
-        } else {
-            backgroundColor = .systemBackground
-        }
+//        if config.index % 2 != 0 {
+//            backgroundColor = .init {
+//                $0.userInterfaceStyle == .dark ? .secondarySystemBackground : .systemGroupedBackground
+//            }
+//        } else {
+//            backgroundColor = .systemBackground
+//        }
     }
 }
 
