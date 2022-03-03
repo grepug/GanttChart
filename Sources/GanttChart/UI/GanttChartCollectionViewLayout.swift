@@ -27,7 +27,7 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
     private var shouldPrepare = false
     private var cachedAttributesArr: [[Attributes]] = []
     private var cachedFrames: [[CGRect]] = []
-    private var cachedSupplementaryViewAttributesArr: [Attributes] = []
+    private var cachedSupplementaryViewAttributesArr: [SupplementaryElementKind: Attributes] = [:]
     
     func changeOrientation() {
         shouldPrepare = true
@@ -103,9 +103,18 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
             }
         }
         
-        for attributes in cachedSupplementaryViewAttributesArr {
-            if attributes.frame.intersects(rect) {
+        for (kind, attributes) in cachedSupplementaryViewAttributesArr {
+            if kind == .fixedHeaderDayBackground {
+                let initialFrame = config.supplementaryViewFrame(for: kind)
+                
+                layoutHeaderCells(attributes: attributes,
+                                  initialFrame: initialFrame,
+                                  extraOffsetY: config.configuration.fixedHeaderHeight / 2)
                 attributesArr.append(attributes)
+            } else {
+                if attributes.frame.intersects(rect) {
+                    attributesArr.append(attributes)
+                }
             }
         }
         
@@ -149,7 +158,7 @@ private extension GanttCollectionViewLayout {
             attributes.frame = frame
             attributes.zIndex = kind.zIndex
             
-            cachedSupplementaryViewAttributesArr.append(attributes)
+            cachedSupplementaryViewAttributesArr[kind] = attributes
         }
     }
 }

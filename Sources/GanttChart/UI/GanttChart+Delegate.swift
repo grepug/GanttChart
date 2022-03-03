@@ -54,7 +54,7 @@ public extension GanttChart {
             }
 
             textLabel.text = "\(day.day)"
-            cell.backgroundColor = .systemBackground
+            cell.backgroundColor = .clear
         case .fixedFirstCell: break
         }
         
@@ -68,6 +68,19 @@ public extension GanttChart {
         switch kindEnum {
         case .todayVerticalLine:
             view.backgroundColor = .systemRed.withAlphaComponent(0.8)
+        case .fixedHeaderDayBackground:
+            view.backgroundColor = .systemBackground
+            
+            if view.layer.sublayers == nil {
+                let borderLayer = CALayer()
+                let borderThickness: CGFloat = 1
+                borderLayer.backgroundColor = UIColor.separator.cgColor
+                borderLayer.frame = .init(x: 0,
+                                          y: view.bounds.height - borderThickness,
+                                          width: view.bounds.width,
+                                          height: borderThickness)
+                view.layer.addSublayer(borderLayer)
+            }
         }
 
         return view

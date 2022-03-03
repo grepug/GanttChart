@@ -31,7 +31,7 @@ private extension ViewController {
         chartConfig.calendarType = type
         
         calendarTypeSwitchButton.title = type.text
-        ganttChart.configure(using: chartConfig)
+        ganttChart.configure(using: chartConfig, reloading: true)
     }
     
     func setupGanttChart() {

@@ -136,6 +136,11 @@ public extension GanttChartConfigurationCache {
 //                         y: fixedHeaderHeight,
 //                         width: width + padding * 2,
 //                         height: itemHeight * 4 + padding + 3)
+        case .fixedHeaderDayBackground:
+            return .init(x: 0,
+                         y: configuration.fixedHeaderHeight / 2,
+                         width: collectionViewContentSize.width,
+                         height: configuration.fixedHeaderHeight / 2)
         case .todayVerticalLine:
             let beforeDays = Date.days(from: chartStartDate, to: currentDate) - 1
             let lineWidth: CGFloat = 3

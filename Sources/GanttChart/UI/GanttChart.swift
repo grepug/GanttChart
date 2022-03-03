@@ -76,6 +76,9 @@ extension GanttChart {
         register(UICollectionReusableView.self,
                                 forSupplementaryViewOfKind: SupplementaryElementKind.todayVerticalLine.rawValue,
                                 withReuseIdentifier: "1")
+        register(UICollectionReusableView.self,
+                                forSupplementaryViewOfKind: SupplementaryElementKind.fixedHeaderDayBackground.rawValue,
+                                withReuseIdentifier: "1")
     }
 }
 

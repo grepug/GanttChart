@@ -29,10 +29,10 @@ public enum GanttChartCellType: String, CaseIterable {
     
     var zIndex: Int {
         switch self {
-        case .fixedHeaderCell, .fixedFirstCell, .fixedHeaderDayCell: return 12
-        case .itemCell: return 10
-        case .itemLabelCell: return 11
-        default: return 9
+        case .fixedHeaderCell, .fixedFirstCell, .fixedHeaderDayCell: return 10
+        case .itemCell: return 2
+        case .itemLabelCell: return 2
+        default: return 1
         }
     }
 }
@@ -103,17 +103,19 @@ public struct GanttHeaderDayCell {
 }
 
 public enum SupplementaryElementKind: String, CaseIterable {
-    case todayVerticalLine
+    case todayVerticalLine, fixedHeaderDayBackground
     
     var zIndex: Int {
         switch self {
         case .todayVerticalLine: return 20
+        case .fixedHeaderDayBackground: return 9
         }
     }
     
     var indexPath: IndexPath {
         switch self {
         case .todayVerticalLine: return [0, 0]
+        case .fixedHeaderDayBackground: return [1, 0]
         }
     }
 }

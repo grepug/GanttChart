@@ -21,7 +21,7 @@ public struct GanttChartConfiguration: Hashable {
     public var showingLeadingFixedColumn: Bool
     
     public init(items: [GanttChartItem],
-                calendarType: GanttChartCalendarScale = .monthsAndDays,
+                calendarType: GanttChartCalendarScale = .weeksAndDays,
                 fixedHeaderHeight: CGFloat = 80,
                 fixedColumnWidth: CGFloat = 100,
                 bgCellHeight: CGFloat = 60,
