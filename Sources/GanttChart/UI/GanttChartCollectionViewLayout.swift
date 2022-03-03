@@ -45,36 +45,8 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
         cachedFrames.removeAll()
         cachedSupplementaryViewAttributesArr.removeAll()
         
-        for section in 0..<collectionView.numberOfSections {
-            var sectionArributes: [Attributes] = []
-            var sectionFrames: [CGRect] = []
-            
-            for item in 0..<collectionView.numberOfItems(inSection: section) {
-                let indexPath = IndexPath(item: item, section: section)
-                let attributes = Attributes(forCellWith: indexPath)
-                let frame = config.cellFrame(at: indexPath)
-                let cellType = config.cellType(at: indexPath)
-                
-                attributes.frame = frame
-                attributes.zIndex = cellType.zIndex
-                
-                sectionArributes.append(attributes)
-                sectionFrames.append(frame)
-            }
-            
-            cachedAttributesArr.append(sectionArributes)
-            cachedFrames.append(sectionFrames)
-        }
-        
-        for kind in SupplementaryElementKind.allCases {
-            let frame = config.supplementaryViewFrame(for: kind)
-            let attributes = Attributes(forSupplementaryViewOfKind: kind.rawValue, with: kind.indexPath)
-            
-            attributes.frame = frame
-            attributes.zIndex = kind.zIndex
-            
-            cachedSupplementaryViewAttributesArr.append(attributes)
-        }
+        prepareItems(collectionView: collectionView)
+        prepareSupplementaryElements()
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
@@ -127,13 +99,45 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
         return attributesArr
     }
     
-    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        print(elementKind)
-        return super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)
-    }
-    
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         true
+    }
+}
+
+private extension GanttCollectionViewLayout {
+    func prepareItems(collectionView: UICollectionView) {
+        for section in 0..<collectionView.numberOfSections {
+            var sectionArributes: [Attributes] = []
+            var sectionFrames: [CGRect] = []
+            
+            for item in 0..<collectionView.numberOfItems(inSection: section) {
+                let indexPath = IndexPath(item: item, section: section)
+                let attributes = Attributes(forCellWith: indexPath)
+                let frame = config.cellFrame(at: indexPath)
+                let cellType = config.cellType(at: indexPath)
+                
+                attributes.frame = frame
+                attributes.zIndex = cellType.zIndex
+                
+                sectionArributes.append(attributes)
+                sectionFrames.append(frame)
+            }
+            
+            cachedAttributesArr.append(sectionArributes)
+            cachedFrames.append(sectionFrames)
+        }
+    }
+    
+    func prepareSupplementaryElements() {
+        for kind in SupplementaryElementKind.allCases {
+            let frame = config.supplementaryViewFrame(for: kind)
+            let attributes = Attributes(forSupplementaryViewOfKind: kind.rawValue, with: kind.indexPath)
+            
+            attributes.frame = frame
+            attributes.zIndex = kind.zIndex
+            
+            cachedSupplementaryViewAttributesArr.append(attributes)
+        }
     }
 }
 
