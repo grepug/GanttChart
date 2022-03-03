@@ -34,6 +34,7 @@ public extension GanttChart {
             cell.applyConfigurations(item: item)
         case .fixedHeaderCell:
             cell.contentConfiguration = chartConfigCache.fixedHeaderTopCellConfiguration(at: indexPath)
+            cell.backgroundColor = .systemBackground
         case .bgCell, .fixedColumnCell:
             cell.contentConfiguration = GanttChartBgCellConfiguration(index: indexPath.section)
         case .fixedHeaderDayCell:
@@ -53,6 +54,7 @@ public extension GanttChart {
             }
 
             textLabel.text = "\(day.day)"
+            cell.backgroundColor = .systemBackground
         case .fixedFirstCell: break
         }
         

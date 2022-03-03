@@ -29,6 +29,10 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
     private var cachedFrames: [[CGRect]] = []
     private var cachedSupplementaryViewAttributesArr: [Attributes] = []
     
+    func changeOrientation() {
+        shouldPrepare = true
+    }
+    
     override var collectionViewContentSize: CGSize {
         config?.collectionViewContentSize ?? .zero
     }
@@ -68,6 +72,15 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
                 let frame = cachedFrames[indexPath.section][indexPath.item]
                 
                 switch cellType {
+                case .fixedFirstCell, .fixedHeaderCell, .fixedHeaderDayCell:
+                    let extraOffsetY = cellType == .fixedHeaderDayCell ?
+                    config.configuration.fixedHeaderHeight / 2 : 0
+                    
+                    layoutHeaderCells(attributes: attributes,
+                                      initialFrame: frame,
+                                      extraOffsetY: extraOffsetY)
+                    
+                    attributesArr.append(attributes)
                 case .itemCell:
                     currentItemCellAttributes = attributes
                     
@@ -193,5 +206,25 @@ private extension GanttCollectionViewLayout {
         itemLabelCellAttributes.showingLabelOnItemCell = showingLabelOnItemCell
         itemCellAttributes.itemCellLabelOffsetX = itemCellLabelOffsetX
         itemCellAttributes.showingLabelOnItemCell = showingLabelOnItemCell
+    }
+}
+
+private extension GanttCollectionViewLayout {
+    func layoutHeaderCells(attributes: Attributes,
+                           initialFrame: CGRect,
+                           extraOffsetY: CGFloat) {
+        let collectionView = collectionView!
+        let collectionViewOffsetY = collectionView.contentOffset.y
+        let initialOffsetY = -collectionView.adjustedContentInset.top
+        
+        if collectionViewOffsetY > initialOffsetY {
+            let newFrame = CGRect(x: initialFrame.minX,
+                                  y: collectionViewOffsetY - initialOffsetY + extraOffsetY,
+                                  width: initialFrame.width,
+                                  height: initialFrame.height)
+            attributes.frame = newFrame
+        } else {
+            attributes.frame = initialFrame
+        }
     }
 }

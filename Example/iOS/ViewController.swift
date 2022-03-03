@@ -8,15 +8,20 @@
 import UIKit
 import GanttChart
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIScrollViewDelegate {
     var ganttChart: GanttChart!
     var calendarTypeSwitchButton: UIBarButtonItem = .init(title: "")
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGanttChart()
         setupNavigationBar()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        ganttChart.changeOrientation(size: size)
     }
 }
 

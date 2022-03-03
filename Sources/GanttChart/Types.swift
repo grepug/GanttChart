@@ -29,6 +29,7 @@ public enum GanttChartCellType: String, CaseIterable {
     
     var zIndex: Int {
         switch self {
+        case .fixedHeaderCell, .fixedFirstCell, .fixedHeaderDayCell: return 12
         case .itemCell: return 10
         case .itemLabelCell: return 11
         default: return 9
