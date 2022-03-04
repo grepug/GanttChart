@@ -65,7 +65,7 @@ public struct GanttChartItem: Identifiable, Hashable {
     public var color: UIColor
     
     public var font: UIFont {
-        .boldSystemFont(ofSize: 18)
+        .systemFont(ofSize: 14)
     }
     
     public var width: CGFloat {

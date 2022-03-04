@@ -14,6 +14,7 @@ public struct GanttChartConfigurationCache: Hashable {
     let bgCells: [GanttBgCell]
     let chartStartDate: Date
     let chartEndDate: Date
+    let itemHeight: CGFloat
 }
 
 public extension GanttChartConfigurationCache {
@@ -77,7 +78,6 @@ public extension GanttChartConfigurationCache {
         let widthPerDay = configuration.widthPerDay
         let extraWidthPerDay = configuration.extraWidthPerDay
         let bgCellHeight = configuration.bgCellHeight
-        let itemHeight = configuration.itemHeight
         
         switch cellType {
         case .fixedFirstCell:
@@ -201,8 +201,8 @@ extension GanttChartConfigurationCache {
         let components = Calendar.current.dateComponents([.month, .year, .weekOfYear], from: date)
         let month = components.month!
         let year = components.year!
-        
-        config.directionalLayoutMargins.leading = 0
+
+        config.directionalLayoutMargins = .zero
         config.textProperties.font = .preferredFont(forTextStyle: .headline)
         
         switch configuration.calendarType {
@@ -226,7 +226,6 @@ private extension GanttChartConfigurationCache {
     
     func height(aboveGroupIndex index: Int) -> CGFloat {
         var _height = CGFloat.zero
-        let padding: CGFloat = 16
         
         for i in 0..<index {
             _height += height(forItems: configuration.itemGroups[i].items.count)
@@ -249,12 +248,12 @@ private extension GanttChartConfigurationCache {
         let item = items[index]
         let beforeDays = Date.days(from: chartStartDate, to: item.startDate) - 1
         let x: CGFloat = configuration.widthPerDay * CGFloat(beforeDays) + configuration.fixedColumnWidth
-        let y: CGFloat = bgCellOffsetY(inSection: index) + (configuration.bgCellHeight - configuration.itemHeight) / 2
+        let y: CGFloat = bgCellOffsetY(inSection: index) + (configuration.bgCellHeight - itemHeight) / 2
 
         return .init(x: x,
                      y: y,
                      width: itemWidth(inSection: index),
-                     height: configuration.itemHeight)
+                     height: itemHeight)
     }
     
     func bgCellOffsetY(inSection index: Int) -> CGFloat {

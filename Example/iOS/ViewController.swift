@@ -35,9 +35,10 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     
                     var config = self.ganttChart.chartConfig
                     config.widthPerDay = vm.widthPerDay
-                    config.itemHeight = vm.itemHeight
+                    config.itemHeightRatio = vm.itemHeightRatio
                     config.fixedHeaderHeight = vm.fixedHeaderHeight
                     config.extraWidthPerDay = vm.extraWidthPerDay
+                    config.bgCellHeight = vm.bgCellHeight
                     
                     self.ganttChart.configure(using: config, reloading: true)
                 }
@@ -48,6 +49,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         ganttChart.changeOrientation(size: size)
+        consoleVM.viewSize = size
     }
 }
 
@@ -87,7 +89,7 @@ private extension ViewController {
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
             .init(startDate: date1, endDate: date2, title: "第一个目标第一个目标第一个目标第一个目标第一个目标", progress: 0.5, color: .systemMint),
             .init(startDate: date3, endDate: date4, title: "健康身体棒1", progress: 0.2, color: .systemGreen),
-        ], drawingFrame: true)
+        ], drawingFrame: false)
         
         let itemsGroup3: GanttChartItemGroup = .init(items: [
             .init(startDate: date5, endDate: date6, title: "健康身体棒2", progress: 0.8, color: .systemBlue),
@@ -98,7 +100,7 @@ private extension ViewController {
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
         ])
         
-        let chartConfig = GanttChartConfiguration(itemGroups: [itemsGroup1, itemsGroup2, itemsGroup3])
+        let chartConfig = GanttChartConfiguration(itemGroups: [itemsGroup1])
         
         ganttChart = .init(frame: view.bounds)
         
@@ -116,6 +118,10 @@ private extension ViewController {
         }
         
         ganttChart.configure(using: chartConfig)
+        
+        DispatchQueue.main.async {
+            self.consoleVM.viewSize = self.view.bounds.size
+        }
     }
     
     func setupNavigationBar() {

@@ -16,20 +16,11 @@ public struct GanttChartConsole: View {
             List {
                 Section {
                     HStack {
-                        Slider(value: $vm.widthPerDay, in: 10...100, step: 1)
+                        Slider(value: $vm.widthPerDay, in: 1...100, step: 1)
                         Text("\(Int(vm.widthPerDay))")
                     }
                 } header: {
-                    Text("Width Per Day")
-                }
-                
-                Section {
-                    HStack {
-                        Slider(value: $vm.extraWidthPerDay, in: 0...50, step: 1)
-                        Text("\(Int(vm.extraWidthPerDay))")
-                    }
-                } header: {
-                    Text("Extra Width Per Day")
+                    Text("每天的宽")
                 }
                 
                 Section {
@@ -38,23 +29,38 @@ public struct GanttChartConsole: View {
                         Text("\(Int(vm.fixedHeaderHeight))")
                     }
                 } header: {
-                    Text("Fixed Header Height")
+                    Text("头部的高")
                 }
                 
                 Section {
                     HStack {
-                        Slider(value: $vm.itemHeight, in: 10...60, step: 1)
-                        Text("\(Int(vm.itemHeight))")
+                        Slider(value: $vm.bgCellHeight, in: 20...80, step: 1)
+                        Text("\(Int(vm.bgCellHeight))")
                     }
                 } header: {
-                    Text("Item Height")
+                    Text("格子的高")
+                }
+                
+                Section {
+                    HStack {
+                        Slider(value: $vm.itemHeightRatio, in: 0...1, step: 0.1)
+                        Text("\(vm.itemHeightRatio)")
+                    }
+                } header: {
+                    Text("进度条与格子高的比例")
+                }
+                
+                Section {
+                    Text("宽：\(vm.viewSize.width)\n高：\(vm.viewSize.height)")
+                } header: {
+                    Text("甘特图的尺寸")
                 }
             }
             .navigationTitle("调试器")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Reset") {
+                    Button("重置") {
                         vm.reset()
                     }
                 }
@@ -68,12 +74,15 @@ public extension GanttChartConsole {
         static var defaultWidthPerDay: CGFloat = 30
         static var defaultExtraWidthPerDay: CGFloat = 0
         static var defaultFixedHeaderHeight: CGFloat = 80
-        static var defaultItemHeight: CGFloat = 40
+        static var defaultItemHeightRatio: CGFloat = 0.667
+        static var defaultBgCellHeight: CGFloat = 60
         
         @Published public var widthPerDay: CGFloat = ViewModel.defaultWidthPerDay
         @Published public var extraWidthPerDay: CGFloat = ViewModel.defaultExtraWidthPerDay
         @Published public var fixedHeaderHeight: CGFloat = ViewModel.defaultFixedHeaderHeight
-        @Published public var itemHeight: CGFloat = ViewModel.defaultItemHeight
+        @Published public var itemHeightRatio: CGFloat = ViewModel.defaultItemHeightRatio
+        @Published public var bgCellHeight: CGFloat = ViewModel.defaultBgCellHeight
+        @Published public var viewSize: CGSize = .zero
         
         var cancellables = Set<AnyCancellable>()
         
@@ -85,7 +94,8 @@ public extension GanttChartConsole {
             widthPerDay = Self.defaultWidthPerDay
             extraWidthPerDay = Self.defaultExtraWidthPerDay
             fixedHeaderHeight = Self.defaultFixedHeaderHeight
-            itemHeight = Self.defaultItemHeight
+            itemHeightRatio = Self.defaultItemHeightRatio
+            bgCellHeight = Self.defaultBgCellHeight
         }
     }
 }

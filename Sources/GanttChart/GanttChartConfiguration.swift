@@ -13,7 +13,7 @@ public struct GanttChartConfiguration: Hashable {
     public var fixedHeaderHeight: CGFloat
     public var fixedColumnWidth: CGFloat
     public var bgCellHeight: CGFloat
-    public var itemHeight: CGFloat
+    public var itemHeightRatio: CGFloat
     public var widthPerDay: CGFloat
     public var extraWidthPerDay: CGFloat
     public var leadingExtraMonths: Int
@@ -25,7 +25,7 @@ public struct GanttChartConfiguration: Hashable {
                 fixedHeaderHeight: CGFloat = 80,
                 fixedColumnWidth: CGFloat = 100,
                 bgCellHeight: CGFloat = 60,
-                itemHeight: CGFloat = 40,
+                itemHeightRatio: CGFloat = 0.667,
                 widthPerDay: CGFloat = 30,
                 extraWidthPerDay: CGFloat = 0,
                 leadingExtraMonths: Int = 0,
@@ -36,7 +36,7 @@ public struct GanttChartConfiguration: Hashable {
         self.fixedHeaderHeight = fixedHeaderHeight
         self.fixedColumnWidth = fixedColumnWidth
         self.bgCellHeight = bgCellHeight
-        self.itemHeight = itemHeight
+        self.itemHeightRatio = itemHeightRatio
         self.widthPerDay = widthPerDay
         self.extraWidthPerDay = extraWidthPerDay
         self.leadingExtraMonths = leadingExtraMonths
@@ -50,12 +50,14 @@ public struct GanttChartConfiguration: Hashable {
         let bgCells = bgCells(startDate: startDate,
                               endDate: endDate)
         let items = itemGroups.flatMap(\.items)
+        let itemHeight = bgCellHeight * itemHeightRatio
         
         return .init(configuration: self,
                      items: items,
                      bgCells: bgCells,
                      chartStartDate: startDate,
-                     chartEndDate: endDate)
+                     chartEndDate: endDate,
+                     itemHeight: itemHeight)
     }
 }
 
