@@ -9,6 +9,7 @@ import UIKit
 
 public struct GanttChartConfigurationCache: Hashable {
     public let configuration: GanttChartConfiguration
+    let items: [GanttChartItem]
     let currentDate: Date = Date()
     let bgCells: [GanttBgCell]
     let chartStartDate: Date
@@ -24,7 +25,7 @@ public extension GanttChartConfigurationCache {
     }
     
     func chartItem(at indexPath: IndexPath) -> GanttChartItem {
-        configuration.items[indexPath.section - 2]
+        items[indexPath.section - 2]
     }
     
     func bgCell(at indexPath: IndexPath) -> GanttBgCell {
@@ -168,9 +169,13 @@ public extension GanttChartConfigurationCache {
         return bgCells.count + 3
     }
     
+    func collectionViewNumberOfSections() -> Int {
+        items.count + 2
+    }
+    
     var collectionViewContentSize: CGSize {
         let width = configuration.fixedColumnWidth + CGFloat(numberOfDays) * configuration.widthPerDay
-        let height = configuration.fixedHeaderHeight + CGFloat(configuration.items.count) * configuration.bgCellHeight
+        let height = configuration.fixedHeaderHeight + CGFloat(items.count) * configuration.bgCellHeight
 
         return .init(width: width, height: height)
     }
@@ -211,7 +216,7 @@ private extension GanttChartConfigurationCache {
     }
     
     func itemFrame(inSection index: Int) -> CGRect {
-        let item = configuration.items[index]
+        let item = items[index]
         let beforeDays = Date.days(from: chartStartDate, to: item.startDate) - 1
         let x: CGFloat = configuration.widthPerDay * CGFloat(beforeDays) + configuration.fixedColumnWidth
         let y: CGFloat = bgCellOffsetY(inSection: index) + (configuration.bgCellHeight - configuration.itemHeight) / 2
@@ -230,7 +235,7 @@ private extension GanttChartConfigurationCache {
     }
     
     func itemWidth(inSection index: Int) -> CGFloat {
-        let item = configuration.items[index]
+        let item = items[index]
         let days = CGFloat(Date.days(from: item.startDate, to: item.endDate))
         
         return configuration.widthPerDay * days

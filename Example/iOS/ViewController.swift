@@ -73,17 +73,23 @@ private extension ViewController {
         let date7 = "2021-12-05 12:00:00".toDate()!
         let date8 = "2022-04-28 13:00:00".toDate()!
         
-        let chartConfig = GanttChartConfiguration(items: [
+        let itemsGroup1: GanttChartItemGroup = .init(items: [
             .init(startDate: date1, endDate: date2, title: "第一个目标第一个目标第一个目标第一个目标第一个目标", progress: 0.5, color: .systemMint),
             .init(startDate: date3, endDate: date4, title: "健康身体棒1", progress: 0.2, color: .systemGreen),
             .init(startDate: date5, endDate: date6, title: "健康身体棒2", progress: 0.8, color: .systemBlue),
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
             .init(startDate: date1, endDate: date2, title: "第一个目标第一个目标第一个目标第一个目标第一个目标", progress: 0.5, color: .systemMint),
+        ])
+        
+        let itemsGroup2: GanttChartItemGroup = .init(items: [
             .init(startDate: date3, endDate: date4, title: "健康身体棒1", progress: 0.2, color: .systemGreen),
             .init(startDate: date5, endDate: date6, title: "健康身体棒2", progress: 0.8, color: .systemBlue),
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
             .init(startDate: date1, endDate: date2, title: "第一个目标第一个目标第一个目标第一个目标第一个目标", progress: 0.5, color: .systemMint),
             .init(startDate: date3, endDate: date4, title: "健康身体棒1", progress: 0.2, color: .systemGreen),
+        ])
+        
+        let itemsGroup3: GanttChartItemGroup = .init(items: [
             .init(startDate: date5, endDate: date6, title: "健康身体棒2", progress: 0.8, color: .systemBlue),
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
             .init(startDate: date1, endDate: date2, title: "第一个目标第一个目标第一个目标第一个目标第一个目标", progress: 0.5, color: .systemMint),
@@ -91,6 +97,8 @@ private extension ViewController {
             .init(startDate: date5, endDate: date6, title: "健康身体棒2", progress: 0.8, color: .systemBlue),
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
         ])
+        
+        let chartConfig = GanttChartConfiguration(itemGroups: [itemsGroup1, itemsGroup2, itemsGroup3])
         
         ganttChart = .init(frame: view.bounds)
         

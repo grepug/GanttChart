@@ -37,13 +37,23 @@ public enum GanttChartCellType: String, CaseIterable {
     }
 }
 
-enum GattCharSection {
-    case fixedHeader, content
-}
-
-struct GanttChartCycle {
-    var startDate: Date
-    var endDate: Date
+public struct GanttChartItemGroup: Hashable {
+    public var items: [GanttChartItem]
+    public var drawingFrame = false
+    
+    var startDate: Date {
+        items.map(\.startDate).min()!
+    }
+    
+    var endDate: Date {
+        items.map(\.endDate).max()!
+    }
+    
+    public init(items: [GanttChartItem],
+                drawingFrame: Bool = false) {
+        self.items = items
+        self.drawingFrame = drawingFrame
+    }
 }
 
 public struct GanttChartItem: Identifiable, Hashable {

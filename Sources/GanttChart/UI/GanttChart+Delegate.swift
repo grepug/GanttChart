@@ -9,7 +9,7 @@ import UIKit
 
 public extension GanttChart {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        chartConfig.items.count + 2
+        chartConfigCache.collectionViewNumberOfSections()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

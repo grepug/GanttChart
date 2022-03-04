@@ -9,7 +9,7 @@ import UIKit
 
 public struct GanttChartConfiguration: Hashable {
     public var calendarType: GanttChartCalendarScale
-    public var items: [GanttChartItem]
+    public var itemGroups: [GanttChartItemGroup]
     public var fixedHeaderHeight: CGFloat
     public var fixedColumnWidth: CGFloat
     public var bgCellHeight: CGFloat
@@ -20,7 +20,7 @@ public struct GanttChartConfiguration: Hashable {
     public var trailingExtraMonths: Int
     public var showingLeadingFixedColumn: Bool
     
-    public init(items: [GanttChartItem],
+    public init(itemGroups: [GanttChartItemGroup],
                 calendarType: GanttChartCalendarScale = .weeksAndDays,
                 fixedHeaderHeight: CGFloat = 80,
                 fixedColumnWidth: CGFloat = 100,
@@ -32,7 +32,7 @@ public struct GanttChartConfiguration: Hashable {
                 trailingExtraMonths: Int = 0,
                 showingLeadingFixedColumn: Bool = true) {
         self.calendarType = calendarType
-        self.items = items
+        self.itemGroups = itemGroups
         self.fixedHeaderHeight = fixedHeaderHeight
         self.fixedColumnWidth = fixedColumnWidth
         self.bgCellHeight = bgCellHeight
@@ -49,17 +49,19 @@ public struct GanttChartConfiguration: Hashable {
         let endDate = chartEndDate
         let bgCells = bgCells(startDate: startDate,
                               endDate: endDate)
+        let items = itemGroups.flatMap(\.items)
         
         return .init(configuration: self,
-              bgCells: bgCells,
-              chartStartDate: startDate,
-              chartEndDate: endDate)
+                     items: items,
+                     bgCells: bgCells,
+                     chartStartDate: startDate,
+                     chartEndDate: endDate)
     }
 }
 
 extension GanttChartConfiguration {
     var chartStartDate: Date {
-        let startDate = items.map(\.startDate).min()!
+        let startDate = itemGroups.map(\.startDate).min()!
         let startOfMonth = startDate.startOfMonth()
         
         switch calendarType {
@@ -73,7 +75,7 @@ extension GanttChartConfiguration {
     }
     
     var chartEndDate: Date {
-        let endDate = items.map(\.endDate).max()!
+        let endDate = itemGroups.map(\.endDate).max()!
         let dateOfTrailingMonth = Calendar.current.date(byAdding: .month,
                                                         value: trailingExtraMonths,
                                                         to: endDate)!
