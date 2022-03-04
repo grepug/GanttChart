@@ -11,6 +11,9 @@ let package = Package(
         .library(
             name: "GanttChart",
             targets: ["GanttChart"]),
+        .library(
+            name: "GanttChartConsole",
+            targets: ["GanttChartConsole"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,7 +24,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "GanttChart",
-            dependencies: []),
+            path: "Sources/GanttChart"),
+        .target(
+            name: "GanttChartConsole",
+            path: "Sources/GanttChartConsole"),
         .testTarget(
             name: "GanttChartTests",
             dependencies: ["GanttChart"]),

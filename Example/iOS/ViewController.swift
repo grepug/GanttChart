@@ -7,16 +7,42 @@
 
 import UIKit
 import GanttChart
+import GanttChartConsole
+import Combine
 
 class ViewController: UIViewController, UIScrollViewDelegate {
     var ganttChart: GanttChart!
     var calendarTypeSwitchButton: UIBarButtonItem = .init(title: "")
+    
+    var consoleVM = GanttChartConsole.ViewModel()
+    var consoleButton = UIBarButtonItem(title: "")
+    
+    var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGanttChart()
         setupNavigationBar()
+        
+        consoleVM
+            .objectWillChange
+            .sink { [weak self] _ in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    
+                    let vm = self.consoleVM
+                    
+                    var config = self.ganttChart.chartConfig
+                    config.widthPerDay = vm.widthPerDay
+                    config.itemHeight = vm.itemHeight
+                    config.fixedHeaderHeight = vm.fixedHeaderHeight
+                    config.extraWidthPerDay = vm.extraWidthPerDay
+                    
+                    self.ganttChart.configure(using: config, reloading: true)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -96,9 +122,23 @@ private extension ViewController {
             self?.ganttChart.scrollsToToday()
         })
         
+        consoleButton.primaryAction = .init(title: "调试器") { [weak self] _ in
+            guard let self = self else { return }
+            
+            let vc = GanttChartConsole.makeViewController(vm: self.consoleVM)
+            vc.modalPresentationStyle = .popover
+            vc.popoverPresentationController?.barButtonItem = self.consoleButton
+            
+            self.present(vc, animated: true)
+        }
+        
         navigationItem.rightBarButtonItems = [
             calendarTypeSwitchButton,
             backToTodayButton
+        ]
+        
+        navigationItem.leftBarButtonItems = [
+            consoleButton
         ]
     }
 }

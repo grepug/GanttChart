@@ -13,6 +13,7 @@
 		2AAB95DA27D058360049F040 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB95D927D058360049F040 /* Assets.xcassets */; };
 		2AAB95DD27D058360049F040 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB95DB27D058360049F040 /* LaunchScreen.storyboard */; };
 		2AAB95E827D06C520049F040 /* GanttChart in Frameworks */ = {isa = PBXBuildFile; productRef = 2AAB95E727D06C520049F040 /* GanttChart */; };
+		2AAB95EA27D0F1CF0049F040 /* GanttChartConsole in Frameworks */ = {isa = PBXBuildFile; productRef = 2AAB95E927D0F1CF0049F040 /* GanttChartConsole */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AAB95EA27D0F1CF0049F040 /* GanttChartConsole in Frameworks */,
 				2AAB95E827D06C520049F040 /* GanttChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +104,7 @@
 			name = Example;
 			packageProductDependencies = (
 				2AAB95E727D06C520049F040 /* GanttChart */,
+				2AAB95E927D0F1CF0049F040 /* GanttChartConsole */,
 			);
 			productName = Example;
 			productReference = 2AAB95CD27D058350049F040 /* Example.app */;
@@ -374,6 +377,10 @@
 		2AAB95E727D06C520049F040 /* GanttChart */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GanttChart;
+		};
+		2AAB95E927D0F1CF0049F040 /* GanttChartConsole */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GanttChartConsole;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
