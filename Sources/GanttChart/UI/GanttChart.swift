@@ -75,12 +75,19 @@ extension GanttChart {
             }
         }
         
-        register(UICollectionReusableView.self,
-                                forSupplementaryViewOfKind: SupplementaryElementKind.todayVerticalLine.rawValue,
-                                withReuseIdentifier: "1")
-        register(UICollectionReusableView.self,
-                                forSupplementaryViewOfKind: SupplementaryElementKind.fixedHeaderDayBackground.rawValue,
-                                withReuseIdentifier: "1")
+        for kind in SupplementaryElement.Kind.allCases {
+            switch kind {
+            case .groupFrame:
+                register(GanttChartCycleFrameReusableView.self,
+                         forSupplementaryViewOfKind: kind.rawValue,
+                         withReuseIdentifier: "1")
+            default:
+                register(UICollectionReusableView.self,
+                         forSupplementaryViewOfKind: kind.rawValue,
+                         withReuseIdentifier: "1")
+            }
+            
+        }
     }
 }
 

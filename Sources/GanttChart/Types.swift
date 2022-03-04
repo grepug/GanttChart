@@ -30,8 +30,8 @@ public enum GanttChartCellType: String, CaseIterable {
     var zIndex: Int {
         switch self {
         case .fixedHeaderCell, .fixedFirstCell, .fixedHeaderDayCell: return 10
-        case .itemCell: return 2
-        case .itemLabelCell: return 2
+        case .itemCell: return 3
+        case .itemLabelCell: return 3
         default: return 1
         }
     }
@@ -112,20 +112,21 @@ public struct GanttHeaderDayCell {
     }
 }
 
-public enum SupplementaryElementKind: String, CaseIterable {
-    case todayVerticalLine, fixedHeaderDayBackground
-    
-    var zIndex: Int {
-        switch self {
-        case .todayVerticalLine: return 20
-        case .fixedHeaderDayBackground: return 9
-        }
+public struct SupplementaryElement: Hashable {
+    public let kind: Kind
+    public let zIndex: Int
+    public let indexPath: IndexPath
+}
+
+public extension SupplementaryElement {
+    enum Kind: String, CaseIterable {
+        case todayVerticalLine, fixedHeaderDayBackground, groupFrame
     }
+}
+
+public extension SupplementaryElement {
+    static let todayVerticalLine: Self = .init(kind: .todayVerticalLine, zIndex: 20, indexPath: [0, 0])
+    static let fixedHeaderDayBackground: Self = .init(kind: .fixedHeaderDayBackground, zIndex: 9, indexPath: [1, 0])
     
-    var indexPath: IndexPath {
-        switch self {
-        case .todayVerticalLine: return [0, 0]
-        case .fixedHeaderDayBackground: return [1, 0]
-        }
-    }
+    static let staticCases: [Self] = [.todayVerticalLine, .fixedHeaderDayBackground]
 }

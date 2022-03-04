@@ -121,22 +121,37 @@ public extension GanttChartConfigurationCache {
         }
     }
     
-    func supplementaryViewFrame(for kind: SupplementaryElementKind) -> CGRect {
-        switch kind {
-//        case .cycleFrame:
-//            let cycleStartDate = cycles.first!.startDate
-//            let cycleEndDate = cycles.first!.endDate
-//
-//            let beforeDays = Date.days(from: chartStartDate, to: cycleStartDate) - 1
-//            let x = CGFloat(beforeDays) * widthPerDay + fixedColumnWidth
-//            let days = Date.days(from: cycleStartDate, to: cycleEndDate)
-//            let width = CGFloat(days) * widthPerDay
-//            let padding: CGFloat = 16
-//
-//            return .init(x: x - padding,
-//                         y: fixedHeaderHeight,
-//                         width: width + padding * 2,
-//                         height: itemHeight * 4 + padding + 3)
+    func supplementaryElementForGroupFrames() -> [SupplementaryElement] {
+        configuration.itemGroups.enumerated().compactMap { index, group in
+            group.drawingFrame ?
+                .init(kind: .groupFrame,
+                      zIndex: 2,
+                      indexPath: [2, index]) :
+            nil
+        }
+    }
+    
+    func supplementaryViewFrame(_ element: SupplementaryElement) -> CGRect {
+        switch element.kind {
+        case .groupFrame:
+            let index = element.indexPath.item
+            let group = configuration.itemGroups[index]
+            let itemCount = group.items.count
+            let cycleStartDate = group.startDate
+            let cycleEndDate = group.endDate
+            let beforeDays = Date.days(from: chartStartDate, to: cycleStartDate) - 1
+            let x = CGFloat(beforeDays) * configuration.widthPerDay + configuration.fixedColumnWidth
+            let days = Date.days(from: cycleStartDate, to: cycleEndDate)
+            let padding: CGFloat = 16
+            let borderThickness: CGFloat = 3
+            let width = CGFloat(days) * configuration.widthPerDay + padding * 2
+            let y = configuration.fixedHeaderHeight + height(aboveGroupIndex: index)
+            let height = height(forItems: itemCount) + borderThickness
+
+            return .init(x: x - padding,
+                         y: y,
+                         width: width,
+                         height: height)
         case .fixedHeaderDayBackground:
             return .init(x: 0,
                          y: configuration.fixedHeaderHeight / 2,
@@ -156,7 +171,7 @@ public extension GanttChartConfigurationCache {
 }
 
 // MARK: for Collection View
-public extension GanttChartConfigurationCache {
+extension GanttChartConfigurationCache {
     func collectionViewNumberOfItem(in section: Int) -> Int {
         if section == 0 {
             return bgCells.count + 1
@@ -205,6 +220,21 @@ public extension GanttChartConfigurationCache {
 }
 
 private extension GanttChartConfigurationCache {
+    func height(forItems numberOfItems: Int) -> CGFloat {
+        configuration.bgCellHeight * CGFloat(numberOfItems)
+    }
+    
+    func height(aboveGroupIndex index: Int) -> CGFloat {
+        var _height = CGFloat.zero
+        let padding: CGFloat = 16
+        
+        for i in 0..<index {
+            _height += height(forItems: configuration.itemGroups[i].items.count)
+        }
+        
+        return _height
+    }
+    
     func calculateLeadingBgCellWidth(at index: Int) -> CGFloat {
         var width = CGFloat.zero
         

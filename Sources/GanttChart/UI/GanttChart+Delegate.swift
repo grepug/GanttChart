@@ -63,9 +63,12 @@ public extension GanttChart {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "1", for: indexPath)
-        let kindEnum = SupplementaryElementKind(rawValue: kind)!
-
+        let kindEnum = SupplementaryElement.Kind(rawValue: kind)!
+        
         switch kindEnum {
+        case .groupFrame:
+            let view = view as! GanttChartCycleFrameReusableView
+            view.applyConfigurations()
         case .todayVerticalLine:
             view.backgroundColor = .systemRed.withAlphaComponent(0.8)
         case .fixedHeaderDayBackground:
@@ -89,11 +92,13 @@ public extension GanttChart {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let cellType = chartConfigCache.cellType(at: indexPath)
         
-        guard cellType == .itemCell else { return nil }
-        
-        let item = chartConfigCache.chartItem(at: indexPath)
-        
-        return contextMenuConfiguration?(item, indexPath.section - 1)
+        switch cellType {
+        case .itemCell:
+            let item = chartConfigCache.chartItem(at: indexPath)
+            return contextMenuConfiguration?(item, indexPath.section - 1)
+        default:
+            return nil
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

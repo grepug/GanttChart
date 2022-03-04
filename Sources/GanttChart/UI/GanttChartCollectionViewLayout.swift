@@ -27,7 +27,7 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
     private var shouldPrepare = false
     private var cachedAttributesArr: [[Attributes]] = []
     private var cachedFrames: [[CGRect]] = []
-    private var cachedSupplementaryViewAttributesArr: [SupplementaryElementKind: Attributes] = [:]
+    private var cachedSupplementaryViewAttributesArr: [SupplementaryElement: Attributes] = [:]
     
     func changeOrientation() {
         shouldPrepare = true
@@ -58,10 +58,28 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let collectionView = collectionView, let config = config else { return nil }
+        guard let collectionView = collectionView, config != nil else { return nil }
         
-        var attributesArr: [UICollectionViewLayoutAttributes] = []
+        var attributesArr: [Attributes] = []
         
+        layoutCells(collectionView: collectionView,
+                    attributesArr: &attributesArr,
+                    in: rect)
+        
+        layoutSupplementaryViews(collectionView: collectionView,
+                                 attributesArr: &attributesArr,
+                                 in: rect)
+        
+        return attributesArr
+    }
+    
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        true
+    }
+}
+
+private extension GanttCollectionViewLayout {
+    func layoutCells(collectionView: UICollectionView, attributesArr: inout [Attributes], in rect: CGRect) {
         for section in 0..<collectionView.numberOfSections {
             var currentItemCellAttributes: Attributes?
             
@@ -102,10 +120,12 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
                 }
             }
         }
-        
-        for (kind, attributes) in cachedSupplementaryViewAttributesArr {
-            if kind == .fixedHeaderDayBackground {
-                let initialFrame = config.supplementaryViewFrame(for: kind)
+    }
+    
+    func layoutSupplementaryViews(collectionView: UICollectionView, attributesArr: inout [Attributes], in rect: CGRect) {
+        for (element, attributes) in cachedSupplementaryViewAttributesArr {
+            if element == .fixedHeaderDayBackground {
+                let initialFrame = config.supplementaryViewFrame(element)
                 
                 layoutHeaderCells(attributes: attributes,
                                   initialFrame: initialFrame,
@@ -117,12 +137,6 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
                 }
             }
         }
-        
-        return attributesArr
-    }
-    
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        true
     }
 }
 
@@ -151,14 +165,16 @@ private extension GanttCollectionViewLayout {
     }
     
     func prepareSupplementaryElements() {
-        for kind in SupplementaryElementKind.allCases {
-            let frame = config.supplementaryViewFrame(for: kind)
-            let attributes = Attributes(forSupplementaryViewOfKind: kind.rawValue, with: kind.indexPath)
+        let cases = SupplementaryElement.staticCases + config.supplementaryElementForGroupFrames()
+        
+        for element in cases {
+            let frame = config.supplementaryViewFrame(element)
+            let attributes = Attributes(forSupplementaryViewOfKind: element.kind.rawValue, with: element.indexPath)
             
             attributes.frame = frame
-            attributes.zIndex = kind.zIndex
+            attributes.zIndex = element.zIndex
             
-            cachedSupplementaryViewAttributesArr[kind] = attributes
+            cachedSupplementaryViewAttributesArr[element] = attributes
         }
     }
 }
