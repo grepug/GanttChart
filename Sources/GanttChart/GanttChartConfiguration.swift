@@ -63,7 +63,7 @@ public struct GanttChartConfiguration: Hashable {
 
 extension GanttChartConfiguration {
     var chartStartDate: Date {
-        let startDate = itemGroups.map(\.startDate).min()!
+        let startDate = itemGroups.map(\.startDate).min() ?? Date()
         let startOfMonth = startDate.startOfMonth()
         
         switch calendarType {
@@ -77,7 +77,7 @@ extension GanttChartConfiguration {
     }
     
     var chartEndDate: Date {
-        let endDate = itemGroups.map(\.endDate).max()!
+        let endDate = itemGroups.map(\.endDate).max() ?? Date()
         let dateOfTrailingMonth = Calendar.current.date(byAdding: .month,
                                                         value: trailingExtraMonths,
                                                         to: endDate)!
