@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum GanttChartCalendarScale: CaseIterable {
+public enum GanttChartCalendarScale: Int, CaseIterable {
     case weeksAndDays, monthsAndDays
     
     public var text: String {
