@@ -11,7 +11,7 @@ class GanttChartCycleFrameReusableView: UICollectionReusableView {
     lazy var frameView = UIView()
     lazy var dashedBorder = CAShapeLayer()
     
-    private let thickness: CGFloat = 3
+    private let thickness: CGFloat = 1
     private let extraOffset: CGFloat = 2
     
     override init(frame: CGRect) {
@@ -28,7 +28,7 @@ class GanttChartCycleFrameReusableView: UICollectionReusableView {
         addSubview(frameView)
         
         dashedBorder.strokeColor = UIColor.systemBlue.cgColor
-        dashedBorder.lineDashPattern = [6, 2]
+        dashedBorder.lineDashPattern = [8, 5]
         dashedBorder.lineWidth = thickness
         dashedBorder.frame = bounds
         dashedBorder.fillColor = nil

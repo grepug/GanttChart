@@ -21,12 +21,12 @@ public struct GanttChartConfiguration: Hashable {
     public var showingLeadingFixedColumn: Bool
     
     public init(itemGroups: [GanttChartItemGroup],
-                calendarType: GanttChartCalendarScale = .weeksAndDays,
+                calendarType: GanttChartCalendarScale = .monthsAndDays,
                 fixedHeaderHeight: CGFloat = 80,
                 fixedColumnWidth: CGFloat = 100,
-                bgCellHeight: CGFloat = 60,
-                itemHeightRatio: CGFloat = 0.667,
-                widthPerDay: CGFloat = 30,
+                bgCellHeight: CGFloat = 53,
+                itemHeightRatio: CGFloat = 0.7,
+                widthPerDay: CGFloat = 8,
                 extraWidthPerDay: CGFloat = 0,
                 leadingExtraMonths: Int = 0,
                 trailingExtraMonths: Int = 0,

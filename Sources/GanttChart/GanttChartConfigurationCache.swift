@@ -159,7 +159,7 @@ public extension GanttChartConfigurationCache {
                          height: configuration.fixedHeaderHeight / 2)
         case .todayVerticalLine:
             let beforeDays = Date.days(from: chartStartDate, to: currentDate) - 1
-            let lineWidth: CGFloat = 3
+            let lineWidth: CGFloat = 1
             let x = CGFloat(beforeDays) * configuration.widthPerDay + configuration.fixedColumnWidth
             
             return .init(x: x + (configuration.widthPerDay / 2) - lineWidth,
