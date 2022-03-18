@@ -14,19 +14,26 @@ public struct GanttChartConfiguration: Hashable {
     public var fixedColumnWidth: CGFloat
     public var bgCellHeight: CGFloat
     public var itemHeightRatio: CGFloat
-    public var widthPerDay: CGFloat
+    public var widthPerDay: CGFloat {
+        switch calendarType {
+        case .weeksAndDays:
+            return 40
+        case .monthsAndDays:
+            return 8
+        }
+    }
     public var extraWidthPerDay: CGFloat
     public var leadingExtraMonths: Int
     public var trailingExtraMonths: Int
     public var showingLeadingFixedColumn: Bool
     
     public init(itemGroups: [GanttChartItemGroup],
-                calendarType: GanttChartCalendarScale = .monthsAndDays,
+                calendarType: GanttChartCalendarScale = .weeksAndDays,
                 fixedHeaderHeight: CGFloat = 80,
                 fixedColumnWidth: CGFloat = 100,
                 bgCellHeight: CGFloat = 53,
                 itemHeightRatio: CGFloat = 0.7,
-                widthPerDay: CGFloat = 8,
+                widthPerDay: CGFloat = 40,
                 extraWidthPerDay: CGFloat = 0,
                 leadingExtraMonths: Int = 0,
                 trailingExtraMonths: Int = 0,
@@ -37,7 +44,6 @@ public struct GanttChartConfiguration: Hashable {
         self.fixedColumnWidth = fixedColumnWidth
         self.bgCellHeight = bgCellHeight
         self.itemHeightRatio = itemHeightRatio
-        self.widthPerDay = widthPerDay
         self.extraWidthPerDay = extraWidthPerDay
         self.leadingExtraMonths = leadingExtraMonths
         self.trailingExtraMonths = trailingExtraMonths

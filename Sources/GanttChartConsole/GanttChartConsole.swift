@@ -71,7 +71,7 @@ public struct GanttChartConsole: View {
 
 public extension GanttChartConsole {
     class ViewModel: ObservableObject {
-        static var defaultWidthPerDay: CGFloat = 8
+        static var defaultWidthPerDay: CGFloat = 40
         static var defaultExtraWidthPerDay: CGFloat = 0
         static var defaultFixedHeaderHeight: CGFloat = 80
         static var defaultItemHeightRatio: CGFloat = 0.667

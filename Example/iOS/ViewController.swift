@@ -34,7 +34,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     let vm = self.consoleVM
                     
                     var config = self.ganttChart.chartConfig
-                    config.widthPerDay = vm.widthPerDay
+//                    config.widthPerDay = vm.widthPerDay
                     config.itemHeightRatio = vm.itemHeightRatio
                     config.fixedHeaderHeight = vm.fixedHeaderHeight
                     config.extraWidthPerDay = vm.extraWidthPerDay
