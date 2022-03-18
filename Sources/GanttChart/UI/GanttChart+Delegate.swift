@@ -33,7 +33,19 @@ public extension GanttChart {
             
             cell.applyConfigurations(item: item)
         case .fixedHeaderCell:
-            cell.contentConfiguration = chartConfigCache.fixedHeaderTopCellConfiguration(at: indexPath)
+            let textLabel: UILabel
+            
+            if let label = cell.contentView.subviews.first(where: { $0.tag == 2 }) as? UILabel {
+                textLabel = label
+            } else {
+                textLabel = UILabel()
+                textLabel.tag = 2
+                cell.contentView.addSubview(textLabel)
+                textLabel.font = .preferredFont(forTextStyle: .headline)
+                textLabel.frame = cell.contentView.bounds
+            }
+            
+            textLabel.text = chartConfigCache.fixedHeaderTopCellText(at: indexPath)
             cell.backgroundColor = .systemBackground
         case .bgCell, .fixedColumnCell:
             cell.contentConfiguration = GanttChartBgCellConfiguration(index: indexPath.section)
@@ -49,8 +61,11 @@ public extension GanttChart {
                 cell.contentView.addSubview(textLabel)
                 textLabel.frame = cell.contentView.bounds
                 textLabel.textAlignment = .center
-                textLabel.adjustsFontSizeToFitWidth = true
                 textLabel.font = .preferredFont(forTextStyle: .footnote)
+            }
+            
+            DispatchQueue.main.async {
+                textLabel.frame.size.width = textLabel.intrinsicContentSize.width
             }
 
             textLabel.text = "\(day.day)"
