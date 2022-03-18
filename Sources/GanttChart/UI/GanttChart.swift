@@ -9,6 +9,7 @@ import UIKit
 
 public class GanttChart: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
     public var contextMenuConfiguration: ((GanttChartItem, Int) -> UIContextMenuConfiguration?)?
+    public var itemCellSelectionHandler: ((GanttChartItem, Int) -> Void)?
     public var chartConfigCache: GanttChartConfigurationCache!
     
     var layout: GanttCollectionViewLayout

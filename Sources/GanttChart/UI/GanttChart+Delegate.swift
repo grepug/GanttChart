@@ -126,6 +126,9 @@ public extension GanttChart {
             collectionView.setContentOffset(.init(x: frame.minX,
                                                   y: collectionView.contentOffset.y),
                                             animated: true)
+        case .itemCell:
+            let item = chartConfigCache.chartItem(at: indexPath)
+            itemCellSelectionHandler?(item, indexPath.section - 1)
         default: break
         }
     }
