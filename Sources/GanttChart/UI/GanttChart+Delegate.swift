@@ -59,15 +59,13 @@ public extension GanttChart {
                 textLabel = UILabel()
                 textLabel.tag = 1
                 cell.contentView.addSubview(textLabel)
-                textLabel.frame = cell.contentView.bounds
                 textLabel.textAlignment = .center
                 textLabel.font = .preferredFont(forTextStyle: .footnote)
-            }
-            
-            DispatchQueue.main.async {
-                textLabel.frame.size.width = textLabel.intrinsicContentSize.width
+                textLabel.adjustsFontSizeToFitWidth = true
             }
 
+            textLabel.frame = cell.contentView.bounds
+//            print(cell.contentView.bounds.size)
             textLabel.text = "\(day.day)"
             cell.backgroundColor = .clear
         case .fixedFirstCell: break

@@ -42,6 +42,7 @@ public extension GanttChart {
         let chartConfig = chartConfig ?? chartConfigCache.configuration
         
         chartConfigCache = chartConfig.cached()
+        layout.invalidateLayout()
         layout.config = chartConfigCache
         
         if reloading {

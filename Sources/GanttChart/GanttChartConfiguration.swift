@@ -19,7 +19,7 @@ public struct GanttChartConfiguration: Hashable {
         case .weeksAndDays:
             return 40
         case .monthsAndDays:
-            return 8
+            return 16
         }
     }
     public var extraWidthPerDay: CGFloat
