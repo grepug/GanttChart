@@ -14,7 +14,13 @@ public struct GanttChartView: UIViewRepresentable {
     public typealias UIViewType = GanttChart
     
     public func makeUIView(context: Context) -> GanttChart {
-        .init(frame: .zero)
+        let chart = GanttChart(frame: .zero)
+        
+        DispatchQueue.main.async {
+            chart.scrollsToToday()
+        }
+        
+        return chart
     }
     
     public func updateUIView(_ uiView: GanttChart, context: Context) {
