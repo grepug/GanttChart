@@ -38,7 +38,7 @@ class GanttChartItemCell: UICollectionViewCell {
     }
     
     func applyConfiguration(item: GanttChartItem) {
-        contentView.backgroundColor = item.color.withAlphaComponent(0.5)
+        contentView.backgroundColor = item.color.withAlphaComponent(0.2)
         
         let width = item.progress * bounds.width
         

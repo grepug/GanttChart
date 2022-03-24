@@ -51,7 +51,7 @@ public struct GanttChartTextView: View {
             .init(startDate: date3, endDate: date4, title: "健康身体棒1", progress: 0.2, color: .systemGreen),
             .init(startDate: date5, endDate: date6, title: "健康身体棒2", progress: 0.8, color: .systemBlue),
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
-            .init(startDate: date1, endDate: date2, title: "第一个目标第一个目标第一个目标第一个目标第一个目标", progress: 0.5, color: .orange),
+//            .init(startDate: date1, endDate: date2, title: "第一个目标第一个目标第一个目标第一个目标第一个目标", progress: 0.5, color: .orange),
         ], drawingFrame: true)
         
         return .init(itemGroups: [itemsGroup1])
