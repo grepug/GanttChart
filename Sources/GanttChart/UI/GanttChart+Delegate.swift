@@ -46,7 +46,12 @@ public extension GanttChart {
             }
             
             textLabel.text = chartConfigCache.fixedHeaderTopCellText(at: indexPath)
-            cell.backgroundColor = .systemBackground
+            
+            if let color = chartConfig.backgroundColor {
+                cell.backgroundColor = color
+            } else {
+                cell.backgroundColor = .systemBackground
+            }
         case .bgCell, .fixedColumnCell:
             cell.contentConfiguration = GanttChartBgCellConfiguration(index: indexPath.section)
         case .fixedHeaderDayCell:
@@ -65,9 +70,13 @@ public extension GanttChart {
             }
 
             textLabel.frame = cell.contentView.bounds
-//            print(cell.contentView.bounds.size)
             textLabel.text = "\(day.day)"
-            cell.backgroundColor = .clear
+            
+            if let color = chartConfig.backgroundColor {
+                cell.backgroundColor = color
+            } else {
+                cell.backgroundColor = .clear
+            }
         case .fixedFirstCell: break
         }
         

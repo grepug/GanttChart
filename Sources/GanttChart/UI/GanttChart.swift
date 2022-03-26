@@ -45,6 +45,12 @@ public extension GanttChart {
         layout.invalidateLayout()
         layout.config = chartConfigCache
         
+        if let color = chartConfig.backgroundColor {
+            backgroundColor = color
+        }
+        
+        isScrollEnabled = !chartConfig.disableScroll
+        
         if reloading {
             reloadData()
         }

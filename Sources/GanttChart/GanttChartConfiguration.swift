@@ -26,6 +26,8 @@ public struct GanttChartConfiguration: Hashable {
     public var leadingExtraMonths: Int
     public var trailingExtraMonths: Int
     public var showingLeadingFixedColumn: Bool
+    public var backgroundColor: UIColor?
+    public var disableScroll = false
     
     public init(itemGroups: [GanttChartItemGroup],
                 calendarType: GanttChartCalendarScale = .weeksAndDays,
@@ -37,7 +39,9 @@ public struct GanttChartConfiguration: Hashable {
                 extraWidthPerDay: CGFloat = 0,
                 leadingExtraMonths: Int = 0,
                 trailingExtraMonths: Int = 0,
-                showingLeadingFixedColumn: Bool = true) {
+                showingLeadingFixedColumn: Bool = true,
+                backgroundColor: UIColor? = nil,
+                disableScroll: Bool = false) {
         self.calendarType = calendarType
         self.itemGroups = itemGroups
         self.fixedHeaderHeight = fixedHeaderHeight
@@ -48,6 +52,8 @@ public struct GanttChartConfiguration: Hashable {
         self.leadingExtraMonths = leadingExtraMonths
         self.trailingExtraMonths = trailingExtraMonths
         self.showingLeadingFixedColumn = showingLeadingFixedColumn
+        self.backgroundColor = backgroundColor
+        self.disableScroll = disableScroll
     }
     
     public func cached() -> GanttChartConfigurationCache {
