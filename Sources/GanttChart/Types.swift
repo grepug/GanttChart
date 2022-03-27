@@ -42,11 +42,11 @@ public struct GanttChartItemGroup: Hashable {
     public var drawingFrame = false
     
     var startDate: Date {
-        items.map(\.startDate).min()!
+        items.map(\.startDate).min() ?? Date()
     }
     
     var endDate: Date {
-        items.map(\.endDate).max()!
+        items.map(\.endDate).max() ?? Date()
     }
     
     public init(items: [GanttChartItem],
