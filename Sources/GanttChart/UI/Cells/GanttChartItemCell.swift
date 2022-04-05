@@ -18,6 +18,11 @@ class GanttChartItemCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 12
         contentView.addSubview(label)
         label.textColor = .white
+        
+        progressView.layer.shadowColor = UIColor.black.cgColor
+        progressView.layer.shadowOpacity = 0.5
+        progressView.layer.shadowOffset = .init(width: 1, height: 1)
+        progressView.layer.shadowRadius = 3
     }
     
     required init?(coder: NSCoder) {
