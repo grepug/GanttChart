@@ -64,7 +64,6 @@ public extension GanttChart {
                 textLabel = UILabel()
                 textLabel.tag = 1
                 cell.contentView.addSubview(textLabel)
-                textLabel.textAlignment = .center
                 textLabel.font = .preferredFont(forTextStyle: .footnote)
                 textLabel.adjustsFontSizeToFitWidth = true
             }

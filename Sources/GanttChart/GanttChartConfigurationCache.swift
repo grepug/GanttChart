@@ -271,9 +271,9 @@ private extension GanttChartConfigurationCache {
         let item = items[index]
         let widthPerDay = configuration.widthPerDay
         let beforeDays = Date.days(from: chartStartDate, to: item.startDate) - 1
-        let x: CGFloat = widthPerDay * CGFloat(beforeDays) + configuration.fixedColumnWidth + widthPerDay / 2
+        let x: CGFloat = widthPerDay * CGFloat(beforeDays) + configuration.fixedColumnWidth
         let y: CGFloat = bgCellOffsetY(inSection: index) + (configuration.bgCellHeight - itemHeight) / 2
-        let width = itemWidth(inSection: index) - widthPerDay
+        let width = itemWidth(inSection: index)
 
         return .init(x: x,
                      y: y,
