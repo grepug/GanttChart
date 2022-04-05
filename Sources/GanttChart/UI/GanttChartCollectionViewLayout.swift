@@ -33,10 +33,6 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
         shouldPrepare = true
     }
     
-    override class var invalidationContextClass: AnyClass {
-        GanttChartCollectionViewLayoutSupplementaryViewInvalidationContext.self
-    }
-    
     override var collectionViewContentSize: CGSize {
         config?.collectionViewContentSize ?? .zero
     }

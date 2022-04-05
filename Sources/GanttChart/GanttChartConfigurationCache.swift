@@ -97,7 +97,7 @@ public extension GanttChartConfigurationCache {
             return .init(x: fixedColumnWidth + dayCell.x - extraWidthPerDay / 2,
                          y: fixedHeaderHeight / 2,
                          width: width,
-                         height: fixedHeaderHeight / 2)
+                         height: fixedHeaderHeight / 2 - 1)
         case .fixedColumnCell:
             return .init(x: 0,
                          y: bgCellOffsetY(inSection: normalizedSection),

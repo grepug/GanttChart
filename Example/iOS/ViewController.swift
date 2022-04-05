@@ -99,7 +99,7 @@ private extension ViewController {
             .init(startDate: date7, endDate: date8, title: "健康身体棒3", progress: 0.3, color: .systemPurple),
         ])
         
-        let chartConfig = GanttChartConfiguration(itemGroups: [itemsGroup1])
+        let chartConfig = GanttChartConfiguration(itemGroups: [itemsGroup1, itemsGroup2, itemsGroup3])
         
         ganttChart = .init(frame: view.bounds)
         

@@ -16,7 +16,7 @@ public struct GanttChartView: UIViewRepresentable {
     public func makeUIView(context: Context) -> GanttChart {
         let chart = GanttChart(frame: .zero)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             chart.scrollsToToday()
         }
         
