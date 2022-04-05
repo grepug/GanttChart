@@ -240,17 +240,10 @@ extension GanttChartConfigurationCache {
         let month = components.month!
         let year = components.year!
         let text: String
+        let yearText = month == 1 ? "\(year)年" : ""
 
-        switch configuration.calendarType {
-        case .monthsAndDays:
-            let yearText = month == 1 ? "\(year)年" : ""
-            text = yearText + "\(month)月"
-        case .weeksAndDays:
-            let week = components.weekOfYear!
-            let yearText = week == 1 ? "\(year + 1)年" : ""
-            text = yearText + "第\(week)周"
-        }
-        
+        text = yearText + "\(month)月"
+
         return text
     }
 }
