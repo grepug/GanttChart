@@ -46,5 +46,6 @@ class GanttChartCycleFrameReusableView: UICollectionReusableView {
     func applyConfigurations() {
         frameView.frame = bounds
         dashedBorder.frame = rectForPath(in: bounds)
+        dashedBorder.path = UIBezierPath(rect: rectForPath(in: bounds)).cgPath
     }
 }

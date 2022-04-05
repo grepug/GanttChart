@@ -30,7 +30,7 @@ public struct GanttChartConfiguration: Hashable {
     public var disableScroll = false
     
     public init(itemGroups: [GanttChartItemGroup],
-                calendarType: GanttChartCalendarScale = .weeksAndDays,
+                calendarType: GanttChartCalendarScale = .monthsAndDays,
                 fixedHeaderHeight: CGFloat = 56,
                 fixedColumnWidth: CGFloat = 100,
                 bgCellHeight: CGFloat = 53,

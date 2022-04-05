@@ -33,6 +33,10 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
         shouldPrepare = true
     }
     
+    override class var invalidationContextClass: AnyClass {
+        GanttChartCollectionViewLayoutSupplementaryViewInvalidationContext.self
+    }
+    
     override var collectionViewContentSize: CGSize {
         config?.collectionViewContentSize ?? .zero
     }
@@ -76,27 +80,6 @@ class GanttCollectionViewLayout: UICollectionViewLayout {
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         true
     }
-    
-//    override func invalidateLayout() {
-//        super.invalidateLayout()
-//        
-//        for (element, orginalAttributes) in cachedSupplementaryViewAttributesArr {
-//            let context = invalidationContext(forPreferredLayoutAttributes: <#T##UICollectionViewLayoutAttributes#>, withOriginalAttributes: <#T##UICollectionViewLayoutAttributes#>)
-//            invalidateLayout(with: context)
-//            
-//            invaliconte
-//        }
-//    }
-    
-//    override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes, withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutInvalidationContext {
-//        let context = super.invalidationContext(forPreferredLayoutAttributes: preferredAttributes, withOriginalAttributes: originalAttributes)
-//
-//        let indexPaths = config.supplementaryElementForGroupFrames().map(\.indexPath)
-//        context.invalidateSupplementaryElements(ofKind: SupplementaryElement.Kind.groupFrame.rawValue,
-//                                                at: indexPaths)
-//
-//        return context
-//    }
 }
 
 private extension GanttCollectionViewLayout {

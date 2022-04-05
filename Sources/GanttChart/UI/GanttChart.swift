@@ -40,10 +40,9 @@ public class GanttChart: UICollectionView, UICollectionViewDelegate, UICollectio
 public extension GanttChart {
     func configure(using chartConfig: GanttChartConfiguration? = nil, reloading: Bool = false) {
         let chartConfig = chartConfig ?? chartConfigCache.configuration
-        
         chartConfigCache = chartConfig.cached()
-        layout.invalidateLayout()
         layout.config = chartConfigCache
+        layout.invalidateLayout()
         
         if let color = chartConfig.backgroundColor {
             backgroundColor = color
