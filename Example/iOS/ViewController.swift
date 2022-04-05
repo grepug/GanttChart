@@ -62,7 +62,7 @@ private extension ViewController {
     }
     
     func setupGanttChart() {
-        let date1 = "2022-01-01 12:00:00".toDate()!
+        let date1 = "2022-01-05 12:00:00".toDate()!
         let date2 = "2022-02-28 13:00:00".toDate()!
         
         let date3 = "2022-02-05 12:00:00".toDate()!
