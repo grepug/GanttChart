@@ -64,7 +64,7 @@ public extension GanttChart {
                 textLabel = UILabel()
                 textLabel.tag = 1
                 cell.contentView.addSubview(textLabel)
-                textLabel.font = .preferredFont(forTextStyle: .footnote)
+                textLabel.font = chartConfigCache.todayCellTextFont
                 textLabel.adjustsFontSizeToFitWidth = true
             }
 
@@ -95,14 +95,15 @@ public extension GanttChart {
         case .fixedHeaderDayBackground:
             view.backgroundColor = .systemBackground
             
+            let borderLayer = view.layer.sublayers?.first ?? CALayer()
+            let borderThickness: CGFloat = 1
+            borderLayer.backgroundColor = UIColor.separator.cgColor
+            borderLayer.frame = .init(x: 0,
+                                      y: view.bounds.height - borderThickness,
+                                      width: view.bounds.width,
+                                      height: borderThickness)
+            
             if view.layer.sublayers == nil {
-                let borderLayer = CALayer()
-                let borderThickness: CGFloat = 1
-                borderLayer.backgroundColor = UIColor.separator.cgColor
-                borderLayer.frame = .init(x: 0,
-                                          y: view.bounds.height - borderThickness,
-                                          width: view.bounds.width,
-                                          height: borderThickness)
                 view.layer.addSublayer(borderLayer)
             }
         }

@@ -131,6 +131,18 @@ public extension GanttChartConfigurationCache {
         }
     }
     
+    var todayCellTextFont: UIFont {
+        .preferredFont(forTextStyle: .footnote)
+    }
+    
+    var todayCellText: String {
+        String(Calendar.current.component(.day, from: Date()))
+    }
+    
+    var todayCellTextWidth: CGFloat {
+        todayCellText.widthOfString(usingFont: todayCellTextFont)
+    }
+    
     func supplementaryViewFrame(_ element: SupplementaryElement) -> CGRect {
         switch element.kind {
         case .groupFrame:
@@ -160,9 +172,10 @@ public extension GanttChartConfigurationCache {
         case .todayVerticalLine:
             let beforeDays = Date.days(from: chartStartDate, to: currentDate) - 1
             let lineWidth: CGFloat = 1
-            let x = CGFloat(beforeDays) * configuration.widthPerDay + configuration.fixedColumnWidth
+            let widthPerDay = configuration.widthPerDay
+            let x = CGFloat(beforeDays) * widthPerDay + configuration.fixedColumnWidth + todayCellTextWidth / 2 - lineWidth
             
-            return .init(x: x + (configuration.widthPerDay / 2) - lineWidth,
+            return .init(x: x,
                          y: configuration.fixedHeaderHeight,
                          width: lineWidth,
                          height: collectionViewContentSize.height - configuration.fixedHeaderHeight)
