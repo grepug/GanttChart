@@ -31,7 +31,7 @@ public struct GanttChartConfiguration: Hashable {
     
     public init(itemGroups: [GanttChartItemGroup],
                 calendarType: GanttChartCalendarScale = .weeksAndDays,
-                fixedHeaderHeight: CGFloat = 80,
+                fixedHeaderHeight: CGFloat = 50,
                 fixedColumnWidth: CGFloat = 100,
                 bgCellHeight: CGFloat = 53,
                 itemHeightRatio: CGFloat = 0.7,
