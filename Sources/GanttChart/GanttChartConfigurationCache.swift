@@ -310,7 +310,7 @@ private extension GanttChartConfigurationCache {
         var cells: [GanttHeaderDayCell] = []
         var x: CGFloat = 0
         
-        while date < chartEndDate {
+        while date <= chartEndDate {
             cells.append(.init(x: x, date: date))
             
             switch configuration.calendarType {
