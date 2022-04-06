@@ -116,7 +116,7 @@ public extension GanttChartConfigurationCache {
             
             return .init(x: itemFrame.minX,
                          y: itemFrame.minY,
-                         width: min(UIScreen.main.bounds.width / 2, item.width) + 32,
+                         width: min(UIScreen.main.bounds.width / 2, item.titleWidth) + 32,
                          height: itemHeight)
         }
     }
@@ -150,13 +150,12 @@ public extension GanttChartConfigurationCache {
             let group = configuration.itemGroups[index]
             let itemCount = group.items.count
             let cycleStartDate = group.startDate
-            let cycleEndDate = group.endDate
             let beforeDays = Date.days(from: chartStartDate, to: cycleStartDate) - 1
             let x = CGFloat(beforeDays) * configuration.widthPerDay + configuration.fixedColumnWidth
-            let days = Date.days(from: cycleStartDate, to: cycleEndDate)
             let padding: CGFloat = 16
             let borderThickness: CGFloat = 3
-            let width = CGFloat(days) * configuration.widthPerDay + padding * 2
+            let width = group.maxItemWidth(widthPerDay: configuration.widthPerDay,
+                                           aligningToLastNumber: configuration.calendarType == .weeksAndDays) + padding * 2
             let y = configuration.fixedHeaderHeight + height(aboveGroupIndex: index)
             let height = height(forItems: itemCount) + borderThickness
 
@@ -296,9 +295,10 @@ private extension GanttChartConfigurationCache {
     
     func itemWidth(inSection index: Int) -> CGFloat {
         let item = items[index]
-        let days = CGFloat(Date.days(from: item.startDate, to: item.endDate))
+        let aligningToLastNumber = configuration.calendarType == .weeksAndDays
         
-        return configuration.widthPerDay * days
+        return item.width(widthPerDay: configuration.widthPerDay,
+                          aligningToLastNumber: aligningToLastNumber)
     }
     
     var numberOfDays: Int {

@@ -49,6 +49,12 @@ public struct GanttChartItemGroup: Hashable {
         items.map(\.endDate).max() ?? Date()
     }
     
+    func maxItemWidth(widthPerDay: CGFloat, aligningToLastNumber: Bool) -> CGFloat {
+        items.map {
+            $0.width(widthPerDay: widthPerDay, aligningToLastNumber: aligningToLastNumber)
+        }.max() ?? 0
+    }
+    
     public init(items: [GanttChartItem],
                 drawingFrame: Bool = false) {
         self.items = items
@@ -68,8 +74,25 @@ public struct GanttChartItem: Identifiable, Hashable {
         .systemFont(ofSize: 14)
     }
     
-    public var width: CGFloat {
+    public var titleWidth: CGFloat {
         title.widthOfString(usingFont: font)
+    }
+    
+    var days: Int {
+        Date.days(from: startDate, to: endDate)
+    }
+    
+    public func width(widthPerDay: CGFloat, aligningToLastNumber: Bool = false) -> CGFloat {
+        var width = CGFloat(days) * widthPerDay
+        
+        if aligningToLastNumber {
+            let lastCellDay = Calendar.current.dateComponents([.day], from: endDate).day!
+            
+            width -= widthPerDay
+            width += String(lastCellDay).widthOfString(usingFont: .preferredFont(forTextStyle: .footnote))
+        }
+        
+        return width
     }
     
     public init(id: UUID = UUID(),
@@ -93,7 +116,7 @@ public struct GanttChartItem: Identifiable, Hashable {
         label.text = title
         label.frame = CGRect(x: padding,
                              y: 0,
-                             width: width,
+                             width: titleWidth,
                              height: rect.height)
     }
 }
