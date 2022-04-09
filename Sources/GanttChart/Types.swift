@@ -29,7 +29,7 @@ public enum GanttChartCellType: String, CaseIterable {
     
     var zIndex: Int {
         switch self {
-        case .fixedHeaderCell, .fixedFirstCell, .fixedHeaderDayCell: return 10
+        case .fixedHeaderCell, .fixedFirstCell, .fixedHeaderDayCell: return 11
         case .itemCell: return 3
         case .itemLabelCell: return 3
         default: return 1
@@ -148,8 +148,8 @@ public extension SupplementaryElement {
 }
 
 public extension SupplementaryElement {
-    static let todayVerticalLine: Self = .init(kind: .todayVerticalLine, zIndex: 20, indexPath: [0, 0])
-    static let fixedHeaderDayBackground: Self = .init(kind: .fixedHeaderDayBackground, zIndex: 9, indexPath: [1, 0])
+    static let todayVerticalLine: Self = .init(kind: .todayVerticalLine, zIndex: 9, indexPath: [0, 0])
+    static let fixedHeaderDayBackground: Self = .init(kind: .fixedHeaderDayBackground, zIndex: 10, indexPath: [1, 0])
     
     static let staticCases: [Self] = [.todayVerticalLine, .fixedHeaderDayBackground]
 }
