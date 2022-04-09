@@ -19,8 +19,7 @@ class GanttChartItemCell: UICollectionViewCell {
         contentView.addSubview(label)
         label.textColor = .white
         
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowOpacity = 0.5
+        contentView.layer.shadowOpacity = 0.8
         contentView.layer.shadowOffset = .init(width: 1, height: 1)
         contentView.layer.shadowRadius = 3
     }
@@ -44,6 +43,7 @@ class GanttChartItemCell: UICollectionViewCell {
     
     func applyConfiguration(item: GanttChartItem) {
         contentView.backgroundColor = item.color.withAlphaComponent(0.2)
+        contentView.layer.shadowColor = item.color.cgColor
         
         let width = item.progress * bounds.width
         

@@ -31,10 +31,10 @@ public struct GanttChartConfiguration: Hashable {
     
     public init(itemGroups: [GanttChartItemGroup],
                 calendarType: GanttChartCalendarScale = .monthsAndDays,
-                fixedHeaderHeight: CGFloat = 56,
+                fixedHeaderHeight: CGFloat = 50,
                 fixedColumnWidth: CGFloat = 100,
-                bgCellHeight: CGFloat = 53,
-                itemHeightRatio: CGFloat = 0.7,
+                bgCellHeight: CGFloat = 48,
+                itemHeightRatio: CGFloat = 0.8,
                 widthPerDay: CGFloat = 40,
                 extraWidthPerDay: CGFloat = 0,
                 leadingExtraMonths: Int = 0,
