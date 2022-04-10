@@ -46,6 +46,8 @@ public extension GanttChart {
         
         if let color = chartConfig.backgroundColor {
             backgroundColor = color
+        } else {
+            backgroundColor = .systemBackground
         }
         
         isScrollEnabled = !chartConfig.disableScroll
