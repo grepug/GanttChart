@@ -93,7 +93,7 @@ public extension GanttChart {
         case .todayVerticalLine:
             view.backgroundColor = .systemRed.withAlphaComponent(0.8)
         case .fixedHeaderDayBackground:
-            view.backgroundColor = .systemBackground
+            view.backgroundColor = chartConfig.backgroundColor ?? .systemBackground
             
             let borderLayer = view.layer.sublayers?.first ?? CALayer()
             let borderThickness: CGFloat = 1
