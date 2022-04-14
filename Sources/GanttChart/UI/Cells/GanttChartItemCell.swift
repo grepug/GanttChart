@@ -19,9 +19,9 @@ class GanttChartItemCell: UICollectionViewCell {
         contentView.addSubview(label)
         label.textColor = .white
         
-        contentView.layer.shadowOpacity = 0.8
+        contentView.layer.shadowOpacity = 0.6
         contentView.layer.shadowOffset = .init(width: 1, height: 1)
-        contentView.layer.shadowRadius = 3
+        contentView.layer.shadowRadius = 2
     }
     
     required init?(coder: NSCoder) {
