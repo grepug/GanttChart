@@ -34,7 +34,7 @@ public struct GanttChartConfiguration: Hashable {
                 fixedHeaderHeight: CGFloat = 50,
                 fixedColumnWidth: CGFloat = 100,
                 bgCellHeight: CGFloat = 48,
-                itemHeightRatio: CGFloat = 0.8,
+                itemHeightRatio: CGFloat = 0.7,
                 widthPerDay: CGFloat = 40,
                 extraWidthPerDay: CGFloat = 0,
                 leadingExtraMonths: Int = 0,
