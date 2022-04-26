@@ -237,12 +237,11 @@ extension GanttChartConfigurationCache {
         let date = bgCell(at: indexPath).dateOfStart
         let components = Calendar.current.dateComponents([.month, .year, .weekOfYear], from: date)
         let month = components.month!
-        let year = components.year!
         let text: String
-        let yearText = month == 1 ? "\(year)年" : ""
+        let yearText = month == 1 ? date.formattedYear : ""
 
-        text = yearText + "\(month)月"
-
+        text = yearText + date.formattedMonth
+        
         return text
     }
 }
@@ -331,5 +330,21 @@ private extension GanttChartConfigurationCache {
         case .weeksAndDays: return configuration.widthPerDay * 7
         case .monthsAndDays: return bgCells[index].width
         }
+    }
+}
+
+fileprivate extension Date {
+    var formattedMonth: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        
+        return dateFormatter.string(from: self)
+    }
+    
+    var formattedYear: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY"
+        
+        return dateFormatter.string(from: self)
     }
 }
