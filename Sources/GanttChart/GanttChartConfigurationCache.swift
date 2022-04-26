@@ -207,32 +207,6 @@ extension GanttChartConfigurationCache {
         return .init(width: width, height: height)
     }
     
-    func fixedHeaderTopCellConfiguration(at indexPath: IndexPath) -> UIContentConfiguration {
-        let date = bgCell(at: indexPath).dateOfStart
-        var config = UIListContentConfiguration.cell()
-        let components = Calendar.current.dateComponents([.month, .year, .weekOfYear], from: date)
-        let month = components.month!
-        let year = components.year!
-
-        config.directionalLayoutMargins = .zero
-        config.imageToTextPadding = 0
-        config.textToSecondaryTextVerticalPadding = 0
-        config.textToSecondaryTextHorizontalPadding = 0
-        config.textProperties.font = .preferredFont(forTextStyle: .headline)
-        
-        switch configuration.calendarType {
-        case .monthsAndDays:
-            let yearText = month == 1 ? "\(year)年" : ""
-            config.text = yearText + "\(month)月"
-        case .weeksAndDays:
-            let week = components.weekOfYear!
-            let yearText = week == 1 ? "\(year + 1)年" : ""
-            config.text = yearText + "第\(week)周"
-        }
-        
-        return config
-    }
-    
     func fixedHeaderTopCellText(at indexPath: IndexPath) -> String {
         let date = bgCell(at: indexPath).dateOfStart
         let components = Calendar.current.dateComponents([.month, .year, .weekOfYear], from: date)
