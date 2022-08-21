@@ -57,10 +57,14 @@ public struct GanttChartConfiguration: Hashable {
     }
     
     public func cached() -> GanttChartConfigurationCache {
-        let startDate = chartStartDate
-        let endDate = chartEndDate
-        let bgCells = bgCells(startDate: startDate,
-                              endDate: endDate)
+        let current = Date()
+        let oneYearBefore = Calendar.current.date(byAdding: .year, value: -1, to: current)!
+        let oneYearAfter = Calendar.current.date(byAdding: .year, value: 1, to: current)!
+        /// 甘特图仅显示两年
+        let endDate = min(oneYearAfter, chartEndDate)
+        let oneDayBeforeEndDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
+        let startDate = min(max(oneYearBefore, chartStartDate), oneDayBeforeEndDate)
+        let bgCells = bgCells(startDate: startDate, endDate: endDate)
         let items = itemGroups.flatMap(\.items)
         let itemHeight = bgCellHeight * itemHeightRatio
         
@@ -112,8 +116,10 @@ extension GanttChartConfiguration {
     func bgCells(startDate: Date, endDate: Date) -> [GanttBgCell] {
         var date = startDate
         var cells: [GanttBgCell] = []
+        let twoYearsAfterStartDate = Calendar.current.date(byAdding: .year, value: 2, to: startDate)!
+        let normalizedEndDate = min(endDate, twoYearsAfterStartDate)
         
-        while date < endDate {
+        while date < normalizedEndDate {
             let days = date.daysInMonth()
             let width = CGFloat(days) * widthPerDay
             
