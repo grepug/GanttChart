@@ -122,12 +122,16 @@ public extension GanttChartConfigurationCache {
     }
     
     func supplementaryElementForGroupFrames() -> [SupplementaryElement] {
-        configuration.itemGroups.enumerated().compactMap { index, group in
-            group.drawingFrame ?
-                .init(kind: .groupFrame,
-                      zIndex: 2,
-                      indexPath: [2, index]) :
-            nil
+        configuration.itemGroups.enumerated().compactMap { index, group -> SupplementaryElement? in
+            guard group.drawingFrame else {
+                return nil
+            }
+            
+            guard !group.items.isEmpty else {
+                return nil
+            }
+            
+            return .init(kind: .groupFrame, zIndex: 2, indexPath: [2, index])
         }
     }
     
